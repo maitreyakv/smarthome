@@ -13,12 +13,12 @@ emulate: raspberry-pi.img
 		ryankurte/docker-rpi-emu:latest ./run.sh rpi.img "/bin/su -l pi"
 	rm -rf ${TEMP_DIR}
 
-raspberry-pi.img: rasbian.json
+raspberry-pi.img: rasbian.pkr.hcl
 	docker run \
 		--rm -it --privileged \
 		-v ${PWD}:/build \
 		-v /dev:/dev \
-		mkaczanowski/packer-builder-arm:1.0.9 build rasbian.json
+		mkaczanowski/packer-builder-arm:1.0.9 build rasbian.pkr.hcl
 
 clean: clean-cache clean-img
 
