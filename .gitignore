@@ -3,3 +3,6 @@
 
 # Raspberry Pi image files
 **/*.img
+
+# Environment files 
+**/*.env

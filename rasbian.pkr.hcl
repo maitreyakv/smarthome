@@ -1,3 +1,18 @@
+variable "PI_USER_PASSWORD" {
+  type      = string
+  sensitive = true
+}
+
+variable "WIFI_SSID" {
+  type      = string
+  sensitive = true
+}
+
+variable "WIFI_PASSWORD" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   base_img_url = join(
     "/",
@@ -45,8 +60,28 @@ source "arm" "base_img" {
 build {
   sources = ["source.arm.base_img"]
 
+  # Basic dev tools
+  provisioner "shell" {
+    inline = ["apt-get install -y vim tree tmux btop"]
+  }
+
+  # SSH configuration
   provisioner "shell" {
     inline = ["touch /boot/ssh"]
+  }
+  
+  # Sets pi user password
+  provisioner "shell" {
+    inline = ["echo \"pi:${var.PI_USER_PASSWORD}\" | chpasswd"]
+  }
+
+  # Wi-Fi configuration
+  provisioner "shell" {
+    inline = [
+      "raspi-config nonint do_wifi_country US",
+      "nmcli --offline connection add type wifi ssid \"${var.WIFI_SSID}\" ifname \"wlan0\" con-name \"${var.WIFI_SSID}\" wifi-sec.psk \"${var.WIFI_PASSWORD}\" wifi-sec.key-mgmt wpa-psk wifi-sec.auth-alg open > /etc/NetworkManager/system-connections/maitreyakv-wifi.nmconnection",
+      "chmod 600 /etc/NetworkManager/system-connections/maitreyakv-wifi.nmconnection"
+    ]
   }
 
 }
