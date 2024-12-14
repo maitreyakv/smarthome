@@ -1,0 +1,5 @@
+# HashiCorp Packer cache
+.packer_cache
+
+# Raspberry Pi image files
+**/*.img
