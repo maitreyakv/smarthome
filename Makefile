@@ -1,7 +1,19 @@
-TEMP_DIR := $(shell mktemp -d) 
+TEMP_DIR := $(shell mktemp -d)
 ALL_SHELL_FILES := $(shell find . -type f -name "*.sh") 
 
 all: lint raspberry-pi.img
+
+install: raspberry-pi.img
+	@lsblk -d; \
+	echo "Which device would you like to flash to?"; \
+	echo -n "device: "; \
+	read device; \
+	device="/dev/$${device}"; \
+	echo -n "So flashing to $${device}? Press enter to confirm or Ctrl-C to stop:"; \
+	read _; \
+	rpi-imager --cli --debug ./raspberry-pi.img "$${device}"; \
+	eject "$${device}"; \
+	echo "Ejected $${device}"
 
 emulate: raspberry-pi.img
 	# Emulation modifies the image file, so we make a temporary copy to use 
@@ -14,7 +26,7 @@ emulate: raspberry-pi.img
 		ryankurte/docker-rpi-emu:latest ./run.sh rpi.img /bin/bash
 	rm -rf ${TEMP_DIR}
 
-raspberry-pi.img: rasbian.pkr.hcl
+raspberry-pi.img: rasbian.pkr.hcl setup.sh
 	docker run \
 		--rm -it --privileged \
 		-v ${PWD}:/build \
@@ -25,6 +37,12 @@ raspberry-pi.img: rasbian.pkr.hcl
 lint:
 	shellcheck -a --color ${ALL_SHELL_FILES}
 	shfmt -d -i 2 ${ALL_SHELL_FILES}
+
+check-deps:
+	docker --version
+	rpi-imager --version
+	shellcheck --version 
+	shfmt --version
 
 clean: clean-cache clean-img
 
