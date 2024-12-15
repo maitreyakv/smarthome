@@ -1,6 +1,7 @@
-TEMP_DIR := $(shell mktemp -d)
+TEMP_DIR := $(shell mktemp -d) 
+ALL_SHELL_FILES := $(shell find . -type f -name "*.sh") 
 
-all: raspberry-pi.img
+all: lint raspberry-pi.img
 
 emulate: raspberry-pi.img
 	# Emulation modifies the image file, so we make a temporary copy to use 
@@ -20,6 +21,10 @@ raspberry-pi.img: rasbian.pkr.hcl
 		-v /dev:/dev \
 		--env-file .env \
 		mkaczanowski/packer-builder-arm:1.0.9 build rasbian.pkr.hcl
+
+lint:
+	shellcheck -a --color ${ALL_SHELL_FILES}
+	shfmt -d -i 2 ${ALL_SHELL_FILES}
 
 clean: clean-cache clean-img
 

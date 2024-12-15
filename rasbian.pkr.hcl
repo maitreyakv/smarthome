@@ -60,28 +60,12 @@ source "arm" "base_img" {
 build {
   sources = ["source.arm.base_img"]
 
-  # Basic dev tools
   provisioner "shell" {
-    inline = ["apt-get install -y vim tree tmux btop"]
+    script = "setup.sh"
+    env = {
+      PI_USER_PASSWORD = var.PI_USER_PASSWORD
+      WIFI_SSID        = var.WIFI_SSID
+      WIFI_PASSWORD    = var.WIFI_PASSWORD
+    }
   }
-
-  # SSH configuration
-  provisioner "shell" {
-    inline = ["touch /boot/ssh"]
-  }
-  
-  # Sets pi user password
-  provisioner "shell" {
-    inline = ["echo \"pi:${var.PI_USER_PASSWORD}\" | chpasswd"]
-  }
-
-  # Wi-Fi configuration
-  provisioner "shell" {
-    inline = [
-      "raspi-config nonint do_wifi_country US",
-      "nmcli --offline connection add type wifi ssid \"${var.WIFI_SSID}\" ifname \"wlan0\" con-name \"${var.WIFI_SSID}\" wifi-sec.psk \"${var.WIFI_PASSWORD}\" wifi-sec.key-mgmt wpa-psk wifi-sec.auth-alg open > /etc/NetworkManager/system-connections/maitreyakv-wifi.nmconnection",
-      "chmod 600 /etc/NetworkManager/system-connections/maitreyakv-wifi.nmconnection"
-    ]
-  }
-
 }
