@@ -32,3 +32,4 @@ chmod 600 "${NM_CONNECTION_FILE}"
 sed -r "$ s/\n$//" /boot/cmdline.txt | xargs -I{} echo {} "cgroup_memory=1 cgroup_enable=memory" >cmdline.txt
 mv cmdline.txt /boot/cmdline.txt
 curl -sfL https://get.k3s.io | sh -
+sed -i -e "s/server/server --node-ip=${RPI_IP}/" /etc/systemd/system/k3s.service

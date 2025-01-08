@@ -13,6 +13,11 @@ variable "WIFI_PASSWORD" {
   sensitive = true
 }
 
+variable "RPI_IP" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   base_img_url = join(
     "/",
@@ -66,6 +71,7 @@ build {
       PI_USER_PASSWORD = var.PI_USER_PASSWORD
       WIFI_SSID        = var.WIFI_SSID
       WIFI_PASSWORD    = var.WIFI_PASSWORD
+      RPI_IP           = var.RPI_IP
     }
   }
 }
