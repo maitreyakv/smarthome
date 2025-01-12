@@ -91,6 +91,7 @@ lint:
 	shfmt -d -i 2 ${ALL_SHELL_FILES}
 
 check-deps:
+	openssl version
 	docker --version
 	kubectl version --client
 	rpi-imager --version
