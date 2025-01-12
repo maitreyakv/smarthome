@@ -21,8 +21,8 @@ raspberry-pi.img: rasbian.pkr.hcl setup.sh
 #                                                 DEPLOYING                                             #
 # ===================================================================================================== #
 
-deploy: deployment.yaml
-	kubectl apply -f deployment.yaml
+deploy: deployments
+	kubectl apply -f deployments
 
 install: raspberry-pi.img
 	@lsblk -d; \
