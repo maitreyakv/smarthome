@@ -46,4 +46,3 @@ spec:
             name: nginx
             port:
               number: 80
-
