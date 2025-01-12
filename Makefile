@@ -21,8 +21,28 @@ raspberry-pi.img: rasbian.pkr.hcl setup.sh
 #                                                 DEPLOYING                                             #
 # ===================================================================================================== #
 
-deploy: deployments
-	kubectl apply -f deployments
+deploy: deploy-registry deploy-ingress
+
+deploy-ingress: .certs/tls.key .certs/tls.crt deployments/ingress.yaml
+	kubectl create secret tls tls-cert \
+		--cert=.certs/tls.crt \
+		--key=.certs/tls.key \
+		--dry-run=client --output=yaml | \
+		kubectl apply -f -
+	kubectl apply -f deployments/ingress.yaml
+
+deploy-registry: deployments/registry.yaml
+	kubectl apply -f deployments/registry.yaml
+
+.certs/tls.key .certs/tls.crt &:
+	mkdir -p .certs
+	openssl req \
+		-newkey rsa:4096 -nodes -sha256 -keyout .certs/tls.key \
+		-addext "subjectAltName=DNS:*.smart.home,IP:${RPI_IP}" \
+		-x509 -days 30 -out .certs/tls.crt
+	sudo cp .certs/tls.crt /usr/local/share/ca-certificates/smarthome-tls.crt
+	sudo update-ca-certificates --fresh
+	sudo systemctl restart docker
 
 install: raspberry-pi.img
 	@lsblk -d; \
@@ -81,7 +101,7 @@ check-deps:
 #                                                 CLEANING                                              #
 # ===================================================================================================== #
 
-clean: clean-cache clean-img
+clean: clean-cache clean-img clean-certs
 
 clean-cache:
 	# Because we build using Docker in priviliged mode, the .packer_cache cannot 
@@ -95,3 +115,6 @@ clean-cache:
 
 clean-img:
 	rm -f raspberry-pi.img 
+
+clean-certs:
+	rm -rf .certs

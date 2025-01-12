@@ -5,7 +5,7 @@ set -euo pipefail
 
 # Install software from package manager
 apt-get update
-apt-get install -y vim tree tmux btop
+apt-get install -y vim tree tmux btop nmap
 apt-get clean
 
 # Enable SSH
