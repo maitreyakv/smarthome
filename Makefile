@@ -64,6 +64,9 @@ ssh-rpi:
 	@if [ -z "${RPI_IP}" ]; then echo "Please set RPI_IP in .env!"; exit 1; fi
 	ssh "pi@${RPI_IP}"
 
+btop-rpi:
+	@ssh -t "pi@${RPI_IP}" "btop"
+
 configure-kubectl:
 	@if [ -z "${RPI_IP}" ]; then echo "Please set RPI_IP in .env!"; exit 1; fi
 	mkdir ~/.kube
