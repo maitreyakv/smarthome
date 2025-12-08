@@ -1,0 +1,25 @@
+rooms:
+- name: living-room
+  devices:
+  - name: shelf-string-lights
+    ip: 10.0.0.131
+  - name: corner-shelf
+    ip: 10.0.0.121
+  - name: floor-lamp-1
+    ip: 10.0.0.235
+  - name: floor-lamp-2
+    ip: 10.0.0.79
+  - name: couch
+    ip: 10.0.0.92
+- name: kitchen
+  devices:
+  - name: kitchen-light-1
+    ip: 10.0.0.171
+  - name: kitchen-light-2
+    ip: 10.0.0.211
+- name: bedroom
+  devices:
+  - name: gold-lamp
+    ip: 10.0.0.212
+  - name: lamp-from-steve
+    ip: 10.0.0.139
