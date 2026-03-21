@@ -38,11 +38,11 @@ deploy-registry: deployments/registry.yaml
 	mkdir -p .certs
 	openssl req \
 		-newkey rsa:4096 -nodes -sha256 -keyout .certs/tls.key \
-		-addext "subjectAltName=DNS:*.smart.home,IP:${RPI_IP}" \
+		-addext "subjectAltName=IP:${RPI_IP}" \
 		-x509 -days 30 -out .certs/tls.crt
-	sudo cp .certs/tls.crt /usr/local/share/ca-certificates/smarthome-tls.crt
-	sudo update-ca-certificates --fresh
-	sudo systemctl restart docker
+	# sudo cp .certs/tls.crt /etc/ssl/certs/smarthome-tls.crt
+	# sudo update-ca-certificates --fresh
+	# sudo systemctl restart docker
 
 install: raspberry-pi.img
 	@lsblk -d; \

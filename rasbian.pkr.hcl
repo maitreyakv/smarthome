@@ -25,8 +25,8 @@ locals {
       "https://downloads.raspberrypi.com",
       "raspios_lite_armhf",
       "images",
-      "raspios_lite_armhf-2024-11-19",
-      "2024-11-19-raspios-bookworm-armhf-lite.img.xz",
+      "raspios_lite_armhf-2025-12-04",
+      "2025-12-04-raspios-trixie-armhf-lite.img.xz",
     ]
   )
 }
