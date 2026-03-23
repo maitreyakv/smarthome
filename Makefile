@@ -21,15 +21,15 @@ raspberry-pi.img: rasbian.pkr.hcl setup.sh
 #                                                 DEPLOYING                                             #
 # ===================================================================================================== #
 
-deploy: deploy-registry deploy-ingress
+deploy: deploy-registry # deploy-ingress
 
-deploy-ingress: .certs/tls.key .certs/tls.crt deployments/ingress.yaml
-	kubectl create secret tls tls-cert \
-		--cert=.certs/tls.crt \
-		--key=.certs/tls.key \
-		--dry-run=client --output=yaml | \
-		kubectl apply -f -
-	kubectl apply -f deployments/ingress.yaml
+# deploy-ingress: .certs/tls.key .certs/tls.crt deployments/ingress.yaml
+# 	kubectl create secret tls tls-cert \
+# 		--cert=.certs/tls.crt \
+# 		--key=.certs/tls.key \
+# 		--dry-run=client --output=yaml | \
+# 		kubectl apply -f -
+# 	kubectl apply -f deployments/ingress.yaml
 
 deploy-registry: deployments/registry.yaml
 	kubectl apply -f deployments/registry.yaml

@@ -16,10 +16,10 @@ spec:
     required:
       nodeSelectorTerms:
         - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - raspberrypi
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - raspberrypi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -67,8 +67,10 @@ metadata:
   labels:
     app: registry
 spec:
+  type: NodePort
   ports:
     - port: 5000
       targetPort: 5000
+      nodePort: 32000
   selector:
     app: registry
