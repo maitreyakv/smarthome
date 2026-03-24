@@ -4,7 +4,7 @@
         "stack": "organization/homelab/main",
         "latest": {
             "manifest": {
-                "time": "2026-03-23T21:21:21.220267549-04:00",
+                "time": "2026-03-23T21:30:40.06536248-04:00",
                 "magic": "3981f2dd175998977d95bf9dcc9d98251f8dad42ad4e692cb72e9d3f49b59729",
                 "version": "v3.192.0"
             },
