@@ -4,7 +4,7 @@
         "stack": "organization/homelab/main",
         "latest": {
             "manifest": {
-                "time": "2026-03-23T21:00:00.942083669-04:00",
+                "time": "2026-03-23T21:21:21.220267549-04:00",
                 "magic": "3981f2dd175998977d95bf9dcc9d98251f8dad42ad4e692cb72e9d3f49b59729",
                 "version": "v3.192.0"
             },
@@ -22,6 +22,27 @@
                     "created": "2026-03-24T00:12:41.665357751Z",
                     "modified": "2026-03-24T00:12:41.665357751Z",
                     "sourcePosition": "project:///.venv/lib/python3.14/site-packages/pulumi/runtime/stack.py#182"
+                },
+                {
+                    "urn": "urn:pulumi:main::homelab::pulumi:providers:docker-build::default_0_0_15",
+                    "custom": true,
+                    "id": "35dcdc9b-1ccc-408f-845b-62cd2603a65f",
+                    "type": "pulumi:providers:docker-build",
+                    "inputs": {
+                        "__internal": {},
+                        "__pulumi-go-provider-infer": true,
+                        "__pulumi-go-provider-version": "1.1.0",
+                        "host": "",
+                        "version": "0.0.15"
+                    },
+                    "outputs": {
+                        "__pulumi-go-provider-infer": true,
+                        "__pulumi-go-provider-version": "1.1.0",
+                        "host": "",
+                        "version": "0.0.15"
+                    },
+                    "created": "2026-03-24T01:19:57.399219571Z",
+                    "modified": "2026-03-24T01:19:57.399219571Z"
                 },
                 {
                     "urn": "urn:pulumi:main::homelab::pulumi:providers:kubernetes::k8s-provider",
@@ -874,6 +895,67 @@
                     "created": "2026-03-24T00:47:20.279541487Z",
                     "modified": "2026-03-24T00:47:20.279541487Z",
                     "sourcePosition": "project:///infra/registry/__init__.py#58"
+                },
+                {
+                    "urn": "urn:pulumi:main::homelab::docker-build:index:Image::api-image",
+                    "custom": true,
+                    "id": "api-image",
+                    "type": "docker-build:index:Image",
+                    "inputs": {
+                        "buildOnPreview": true,
+                        "context": {
+                            "location": "../apps/api"
+                        },
+                        "dockerfile": {
+                            "inline": "",
+                            "location": "../apps/api/Dockerfile"
+                        },
+                        "exec": false,
+                        "load": false,
+                        "network": "default",
+                        "noCache": false,
+                        "pull": false,
+                        "push": false,
+                        "tags": [
+                            "api:latest"
+                        ],
+                        "target": ""
+                    },
+                    "outputs": {
+                        "buildOnPreview": true,
+                        "context": {
+                            "location": "../apps/api"
+                        },
+                        "contextHash": "9da385f4f097f4ad7a074a1506af3e12655f741fdd53316795988a65ce417534",
+                        "digest": "",
+                        "dockerfile": {
+                            "inline": "",
+                            "location": "../apps/api/Dockerfile"
+                        },
+                        "exec": false,
+                        "load": false,
+                        "network": "default",
+                        "noCache": false,
+                        "pull": false,
+                        "push": false,
+                        "ref": "api:latest",
+                        "tags": [
+                            "api:latest"
+                        ],
+                        "target": ""
+                    },
+                    "parent": "urn:pulumi:main::homelab::pulumi:pulumi:Stack::homelab-main",
+                    "provider": "urn:pulumi:main::homelab::pulumi:providers:docker-build::default_0_0_15::35dcdc9b-1ccc-408f-845b-62cd2603a65f",
+                    "propertyDependencies": {
+                        "buildOnPreview": [],
+                        "context": [],
+                        "network": [],
+                        "push": [],
+                        "tags": []
+                    },
+                    "created": "2026-03-24T01:21:21.120778136Z",
+                    "modified": "2026-03-24T01:21:21.120778136Z",
+                    "sourcePosition": "project:///infra/api/__init__.py#3"
                 }
             ],
             "metadata": {}

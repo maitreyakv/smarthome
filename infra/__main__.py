@@ -1,3 +1,3 @@
-from infra import registry
+from infra import api, registry
 
-__all__ = ["registry"]
+__all__ = ["api", "registry"]
