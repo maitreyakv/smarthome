@@ -1,3 +1,3 @@
-"""A Python Pulumi program"""
+from infra import registry
 
-import pulumi
+__all__ = ["registry"]
